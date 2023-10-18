@@ -61,7 +61,13 @@ class Account {
           
     }
 
-
+    function email_exists($email1, $email2){
+        if ($email1 == $email2) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
 
 ?>

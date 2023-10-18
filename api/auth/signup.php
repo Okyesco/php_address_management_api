@@ -9,8 +9,12 @@
         $account = new Account ($mysqli);
         $data = json_decode(file_get_contents('php://input'));
         if ($account->email_validate($data->email)){
+            
             $existingUser = $account->getUserByEmail($data->email);
-            if ($data->email != $existingUser["email"]){
+
+            $email_exist = $account->email_exists($data->email, $existingUser["email"]);
+
+            if (!$email_exist){
                 if ($account->createUser($data->name, $data->email, $data->pwd)) {
                     // $existingUser = $address->getUserByEmail($data->email);
                     $userName = $data->name;
