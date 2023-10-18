@@ -9,7 +9,7 @@ require_once '../endpoints/put.php';
 header("Access-Control_Allow-Origin: *");
 header("Content-Type: application/json");
 
-$address = new Address($mysqli);
+// $address = new Address($mysqli);
 
 
 
