@@ -36,14 +36,14 @@ class Account {
     
         if ($stmt->execute()) {
             $result = $stmt->get_result();
-            $address = $result->fetch_assoc();
+            $account = $result->fetch_assoc();
     
-            if ($address === null) {
+            if ($account === null) {
                 // This piece of code Handle the case where no address with the provided ID is found
                 return array("message" => "Address not found.");
             }
     
-            return $address;
+            return $account;
         } else {
             // This piece of code Handle the database query error
             echo "Error: " . $stmt->error;

@@ -6,17 +6,19 @@
     header("Content-Type: application/json");
 
     function register($mysqli){
-        $address = new Account ($mysqli);
+        $account = new Account ($mysqli);
         $data = json_decode(file_get_contents('php://input'));
-        if ($address->email_validate($data->email)){
-            $existingUser = $address->getUserByEmail($data->email);
-            if (!$data->email == $existingUser){
-                if ($address->createUser($data->name, $data->email, $data->pwd)) {
+        if ($account->email_validate($data->email)){
+            $existingUser = $account->getUserByEmail($data->email);
+            if ($data->email != $existingUser["email"]){
+                if ($account->createUser($data->name, $data->email, $data->pwd)) {
                     // $existingUser = $address->getUserByEmail($data->email);
                     $userName = $data->name;
                     echo json_encode(array("message" => "Account for  '$userName' created successfully."));
                     
-                }
+                }else {
+                    echo json_encode(array("message" => "Failed to create the user. !!!"));
+                } 
             }else{
                 echo json_encode(array("message" => "Email alreday exists, Please login !!!"));   
             }
