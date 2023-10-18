@@ -68,6 +68,13 @@ class Account {
             return false;
         }
     }
+
+    function empty_field($input){
+        $refined_input = trim($input);
+        if (empty($refined_input)) {
+            return true;
+        }
+    }
 }
 
 ?>
