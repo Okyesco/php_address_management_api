@@ -17,7 +17,9 @@
             $empty_name = $account->empty_field($data->name);
             $empty_pwd = $account->empty_field($data->pwd);
 
-            if (!$empty_name && !$empty_pwd){
+            $is_valid_email = $account->email_validate($data->email);
+
+            if (!$empty_name && !$empty_pwd && $is_valid_email){
                 if (!$email_exist){
                     if ($account->createUser($data->name, $data->email, $data->pwd)) {
                         // $existingUser = $address->getUserByEmail($data->email);

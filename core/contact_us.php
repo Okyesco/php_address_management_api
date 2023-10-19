@@ -1,13 +1,13 @@
 <?php
 
-class Account {
+class ContactUs {
     private $conn;
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    public function contactUs($name, $email, $subject, $message) {
+    public function get_feedback($name, $email, $subject, $message) {
         // This piece of code Use prepared statements to prevent SQL injection
         
         $query = "INSERT INTO contact_us (name, email, subject, message) VALUES (?, ?, ?, ?)";
