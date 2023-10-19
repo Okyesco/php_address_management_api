@@ -181,7 +181,7 @@ class Account {
         }      
     }
 
-    public function logout(){
+    public function destroy_session(){
         session_start();
 
         // Unset all session variables
@@ -189,7 +189,10 @@ class Account {
 
         // Destroy the session
         session_destroy();
-
+    }
+    public function logout(){
+        
+        $this->destroy_session();
         echo json_encode(array("message" => "Logout successfully !!!"));
 
         // Redirect to the login page
