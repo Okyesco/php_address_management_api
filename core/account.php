@@ -126,24 +126,23 @@ class Account {
 
 
     public function register($mysqli){
-        $account = new Account ($mysqli);
         $data = json_decode(file_get_contents('php://input'));
-        if ($account->email_validate($data->email)){
+        if ($this->email_validate($data->email)){
 
-            $existingUser = $account->getUserByEmail($data->email);
+            $existingUser = $this->getUserByEmail($data->email);
 
-            $email_exist = $account->email_exists($data->email, $existingUser["email"]);
+            $email_exist = $this->email_exists($data->email, $existingUser["email"]);
 
-            $empty_name = $account->empty_field($data->name);
-            $empty_pwd = $account->empty_field($data->pwd);
+            $empty_name = $this->empty_field($data->name);
+            $empty_pwd = $this->empty_field($data->pwd);
 
-            $is_valid_email = $account->email_validate($data->email);
+            $is_valid_email = $this->email_validate($data->email);
 
             if (!$empty_name && !$empty_pwd && $is_valid_email){
                 if (!$email_exist){
-                    $encrypted_pwd = $account->encryption($data->pwd);
+                    $encrypted_pwd = $this->encryption($data->pwd);
 
-                    if ($account->createUser($data->name, $data->email, $encrypted_pwd)) {
+                    if ($this->createUser($data->name, $data->email, $encrypted_pwd)) {
                         // $existingUser = $address->getUserByEmail($data->email);
                         $userName = $data->name;
                         echo json_encode(array("message" => "Account for  '$userName' created successfully."));
@@ -191,13 +190,55 @@ class Account {
         session_destroy();
     }
     public function logout(){
-        
+
         $this->destroy_session();
         echo json_encode(array("message" => "Logout successfully !!!"));
 
         // Redirect to the login page
         // header('Location: login.php');
         exit;
+    }
+
+    public function verify_email($email){
+        $existing_user = $this->getUserByEmail($email);
+        $existing_user_email = $existing_user["email"];
+
+        if ($email == $existing_user_email){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public function update_pwd($pwd, $email){
+        $query = "UPDATE user_data SET pwd = ? WHERE email = ?";
+        $stmt = $this->conn->prepare($query);
+
+        $encrypted_pwd = $this->encryption($pwd);
+    
+        // This piece of code Bind the parameter and set its value
+        $stmt->bind_param("ss", $encrypted_pwd, $email);
+    
+        if ($stmt->execute()) {
+
+            return true;
+        } else {
+            // This piece of code Handle the database query error
+            echo "Error: " . $stmt->error;
+            return false;
+        }
+    }
+    public function reset_pwd($pwd, $email){
+        $verified_email = $this->verify_email($email);
+
+        if ($verified_email){
+            $this->update_pwd($pwd, $email);
+        
+            echo json_encode(array("message" => "Password Changed Successfully."));;
+        }else{
+            echo json_encode(array("message" => "User doesn't exist !!!"));
+        }
     }
 
 
