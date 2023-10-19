@@ -5,9 +5,9 @@
     header("Access-Control_Allow-Origin: *");
     header("Content-Type: application/json");
 
-    $login = new Account($mysqli);
+    $user = new Account($mysqli);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $login->login();
+        $user->login();
     }
 ?>
