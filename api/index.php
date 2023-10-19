@@ -9,9 +9,6 @@ require_once '../endpoints/put.php';
 header("Access-Control_Allow-Origin: *");
 header("Content-Type: application/json");
 
-// $address = new Address($mysqli);
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     get_all_data($mysqli);

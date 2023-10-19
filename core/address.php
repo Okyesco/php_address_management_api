@@ -193,6 +193,22 @@ class Address {
         }
     }
 
+    public function empty_field($input){
+        $refined_input = trim($input);
+        if (empty($refined_input)) {
+            return true;
+        }
+    }
+
+    public function email_validate($email){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          return false;
+        }else{
+            return true;
+        }
+      
+    }
+
 }
 
 ?>
