@@ -8,6 +8,6 @@
     $account = new Account ($mysqli);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $account->register($mysqli);
+        $account->register();
     }
 ?>

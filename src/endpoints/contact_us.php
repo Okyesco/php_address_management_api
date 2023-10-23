@@ -2,6 +2,7 @@
 
     require_once "../core/contact_us.php";
     include_once "../includes/config.php";
+    
 
     function get_feedback($mysqli){
         $feedback = new ContactUs($mysqli);

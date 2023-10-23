@@ -1,0 +1,40 @@
+
+version: '1'
+
+services:
+  php-env:
+    image: address_management_api
+    build: .
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_DATABASE: address_management_app
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: 
+      # MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    # volumes:
+    #   - "db_data:/var/lib/mysql"
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9001:80
+    environment:
+      - PMA_ARBITRARY=1
+      
+
+volumes:
+  db_data:
+
+

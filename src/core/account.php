@@ -125,7 +125,7 @@ class Account {
     }
 
 
-    public function register($mysqli){
+    public function register(){
         $data = json_decode(file_get_contents('php://input'));
         if ($this->email_validate($data->email)){
 
