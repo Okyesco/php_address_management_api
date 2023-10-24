@@ -1,53 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Address Form</title>
+    <title>Login Form</title>
 </head>
 <body>
-    <h1>Create Address</h1>
-    <form id="address-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-
-        <label for="gender">Gender:</label>
-        <input type="text" id="gender" name="gender" required><br><br>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required><br><br>
+    <h1>Login</h1>
+    <form id="sign-up-form">
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
-        <label for="contact">Contact:</label>
-        <input type="text" id="contact" name="contact" required><br><br>
+        <label for="pwd">Password:</label>
+        <input type="password" id="pwd" name="pwd" required><br><br>
 
 
-        <button type="submit">ADD ADDRESS</button>
+        <button type="submit">LOG IN</button>
     </form>
     <br><br>
     <div id="message" style="color: green;"></div>
     <script>
         // JavaScript code to submit the form via AJAX and handle the API response
-        document.getElementById('address-form').addEventListener('submit', function (e) {
+        document.getElementById('sign-up-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            var name = document.getElementById('name').value;
-            var gender = document.getElementById('gender').value;
-            var address = document.getElementById('address').value;
             var email = document.getElementById('email').value;
-            var contact = document.getElementById('contact').value;
+            var pwd = document.getElementById('pwd').value;
 
             // Create a JSON object from the form data
             var data = {
-                name: name,
-                gender: gender,
-                address: address,
                 email: email,
-                contact: contact
+                pwd: pwd
             };
 
             // Send the data to your POST API using AJAX (you may use a library like jQuery)
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../api/index.php', true);
+            xhr.open('POST', '../api/auth/signin.php', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function () {
                 if (xhr.status === 200) {

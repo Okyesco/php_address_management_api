@@ -1,9 +1,16 @@
 <?php
- 
+    // #Docker
     $database_host = "db";
     $database_username = "root";
     $database_password = "root";
     $database_name = "address_management_app";
+
+    #LOCALHOST
+    // $database_host = "127.0.0.1";
+    // $database_username = "root";
+    // $database_password = "";
+    // $database_name = "address_management_app";
+
     
     $mysqli = new mysqli($database_host, $database_username, $database_password, $database_name);
     
