@@ -169,7 +169,7 @@ class Account {
         if ($this->verify_user($data->email, $data->pwd)){
             session_start();
             $existing_user = $this->getUserByEmail($data->email);
-            $existing_user_id = $existing_user["id"];
+            $existing_user_id = $existing_user["user_id"];
             echo json_encode(array("message" => "User authenticated successfully."));
             $_SESSION['user_id'] = $existing_user_id; // Store user information in a session
             // header('Location: dashboard.php'); // Redirect to a protected page
@@ -179,6 +179,8 @@ class Account {
             echo json_encode(array("message" => "Invalid Email or password !!!"));
         }      
     }
+
+    
 
     public function destroy_session(){
         session_start();
