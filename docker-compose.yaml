@@ -1,7 +1,17 @@
 
-version: '1'
+version: '3'
 
 services:
+  address:
+    image: address-management-system
+    ports:
+      - '3000:3000'
+    networks:
+      - address-api
+
+    stdin_open: true
+    tty: true
+
   php-env:
     image: address_management_api
     build: .
@@ -11,6 +21,11 @@ services:
       - "8000:80"
     depends_on:
       - db
+    networks:
+      - address-api
+
+    env_file:
+      - ./php/conf.env
 
   db:
     image: mysql:latest
@@ -18,6 +33,8 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
+    networks:
+      - address-api
       # MYSQL_DATABASE: address_management_app
       # MYSQL_USER: root
       # MYSQL_PASSWORD: 
@@ -32,9 +49,14 @@ services:
       - 9001:80
     environment:
       - PMA_ARBITRARY=1
+    networks:
+      - address-api
       
 
 volumes:
   db_data:
+
+networks:
+  address-api:
 
 

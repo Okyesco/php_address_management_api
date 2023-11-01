@@ -2,6 +2,8 @@
     require_once '../includes/config.php';
     require_once '../core/address.php';
 
+
+
     function post_data($mysqli){
         $address = new Address($mysqli);
         $data = json_decode(file_get_contents('php://input'));
